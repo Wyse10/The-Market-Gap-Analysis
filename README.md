@@ -6,7 +6,7 @@ Our analysis of the Open Food Facts snack dataset (High Protein ≥45g/100g, Low
 ## B. Project Links
 - Link to Notebook: [Notebook Link](https://colab.research.google.com/drive/12ah_dBhWhUTsv2qRKqfnL7gzr2untKPP?usp=sharing)
 
-- Link to Dashboard:
+- Link to Dashboard:[Dashboard Link](https://the-market-gap-analysis-7sxnpdph8qkvezbvcsdpzq.streamlit.app/)
 
 - Link to Presentation:  
 
