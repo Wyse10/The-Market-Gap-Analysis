@@ -1,3 +1,37 @@
+## A. Executive Summary
+
+Our analysis of the Open Food Facts snack dataset (High Protein ≥45g/100g, Low Sugar <10g/100g) shows that "Blue Ocean" products are extremely rare overall, and that normalizing each category's Blue Ocean count by its own size — rather than raw counts — reveals **Sweets & Candies** as the true under-served gap, at just 0.09% penetration versus 0.64% for Savory Snacks, the category where this combination is currently most common. This makes Sweets & Candies the clearest opportunity for the new "Healthy Snacking" line, since consumers already buy heavily into this aisle but almost nothing on the shelf combines a meaningful protein claim with a low-sugar profile. Among the handful of products that already succeed in this niche, whey and soy protein each drive protein content in roughly 10% of cases, followed by cheese at ~6%, pointing to a dairy- or soy-protein-based formulation as the most proven path to a high-protein claim. Our recommendation: build a Sweets & Candies product formulated at or above 63g protein and below 1g sugar per 100g — the median profile of the small cluster of products that already occupy this space, a combination almost no current competitor in that category offers.
+
+
+## B. Project Links
+- Link to Notebook: [Notebook Link](https://colab.research.google.com/drive/12ah_dBhWhUTsv2qRKqfnL7gzr2untKPP?usp=sharing)
+
+- Link to Dashboard:
+
+- Link to Presentation:  
+
+
+## C. Technical Explanation
+
+### Data Cleaning
+
+We worked with a manageable subset of the Open Food Facts CSV rather than the full 3GB+ file. The following cleaning steps were applied before analysis:
+
+- **Missing values:** Rows with null or empty `product_name`, `sugars_100g`, or `proteins_100g` were dropped, since these fields are required for both the categorization logic and the scatter plot — imputing them risked fabricating data points that don't exist in reality.
+- **Outliers / biologically impossible values:** Rows where `sugars_100g` or `proteins_100g` fell outside the 0–100g range were removed, along with rows where the two combined exceeded 100g per 100g of product — both are physically impossible for a "per 100g" nutrition figure and stem from data entry errors.
+- **Category parsing:** The `categories_tags` column (a comma-separated string of granular tags like `en:chocolate-chip-cookies-with-nuts`) was lowercased, cleaned, and mapped via keyword matching into a `primary_category` column with five high-level buckets: Bakery & Biscuits, Sweets & Candies, Savory Snacks, Dairy Products, and Beverages.
+- **Output:** The cleaned result was exported to `cleaned_snacks.csv`, which the Streamlit dashboard (`app.py`) loads directly — keeping the analysis reproducible without relying on local file paths.
+
+### Candidate's Choice Addition
+
+We added a **true Blue Ocean penetration rate by category** metric and chart — the percentage of each category's own products that are already High Protein (≥45g/100g) / Low Sugar (<10g/100g) — instead of relying on raw Blue Ocean product counts.
+
+This mattered in practice, not just in theory: our first pass at this analysis looked at raw counts and Savory Snacks/Bakery & Biscuits data in isolation, which pointed toward the wrong category. Savory Snacks has the most Blue Ocean products in absolute terms (29), which could tempt a team to conclude that category is the opportunity — but Savory Snacks is also where high-protein, low-sugar formulation is *already most common* (0.64% penetration), not where the gap is. Once we normalized every category by its own size, Sweets & Candies stood out as having the lowest true penetration (0.09%) despite having very few Blue Ocean products in absolute terms (5) — because it's also a large category, so that thin slice represents a genuine, largely untapped gap. Normalizing by category size turned this from a counting exercise into a real gap-finding tool, which is the actual point of a Blue Ocean analysis, and it changed our final recommendation.
+
+### Note on Threshold Sensitivity
+
+The High Protein / Low Sugar thresholds (currently 45g / 10g per 100g) were tightened during this project from an earlier working version (15g / 5g). Because Bakery & Biscuits and Sweets & Candies sit very close together in true penetration (0.12% vs. 0.09%) at the current thresholds, the "winning" category is sensitive to where exactly these cutoffs are drawn. We recomputed the recommendation from scratch under the current thresholds rather than carrying over the earlier conclusion, and we'd recommend the same discipline — recompute the full cross-category comparison, don't just re-filter one category — any time the thresholds change again.
+
 # Project Brief: The "Sugar Trap" Market Gap Analysis
 
 **Client:** Helix CPG Partners (Strategic Food & Beverage Consultancy)  
