@@ -8,7 +8,7 @@ Our analysis of the Open Food Facts snack dataset (High Protein ≥45g/100g, Low
 
 - Link to Dashboard:[Dashboard Link](https://the-market-gap-analysis-7sxnpdph8qkvezbvcsdpzq.streamlit.app/)
 
-- Link to Presentation:  
+- Link to Presentation:[Persentation Link](https://docs.google.com/presentation/d/1DklGvGXbEYi5whohwlTgHdrn0gQ0jsdt/edit?usp=sharing&ouid=109562509454218423317&rtpof=true&sd=true)  
 
 
 ## C. Technical Explanation
@@ -30,7 +30,7 @@ This mattered in practice, not just in theory: our first pass at this analysis l
 
 ### Note on Threshold Sensitivity
 
-The High Protein / Low Sugar thresholds (currently 45g / 10g per 100g) were tightened during this project from an earlier working version (15g / 5g). Because Bakery & Biscuits and Sweets & Candies sit very close together in true penetration (0.12% vs. 0.09%) at the current thresholds, the "winning" category is sensitive to where exactly these cutoffs are drawn. We recomputed the recommendation from scratch under the current thresholds rather than carrying over the earlier conclusion, and we'd recommend the same discipline — recompute the full cross-category comparison, don't just re-filter one category — any time the thresholds change again.
+The High Protein / Low Sugar thresholds used in this analysis are set at 45g protein / 10g sugar per 100g. Because Bakery & Biscuits and Sweets & Candies sit very close together in true penetration (0.12% vs. 0.09%) at these thresholds, the "winning" category is sensitive to where exactly these cutoffs are drawn. We'd recommend recomputing the full cross-category comparison — not just re-filtering one category — any time the thresholds change, to make sure the recommendation still holds.
 
 # Project Brief: The "Sugar Trap" Market Gap Analysis
 
